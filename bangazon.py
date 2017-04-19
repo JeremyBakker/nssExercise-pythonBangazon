@@ -74,8 +74,17 @@ class Department():
         Arguments:
         employee(string)
         '''
+        employee_name = employee.first_name+" "+employee.last_name
+        self.employees.add(employee_name)
 
-        self.employees.add(employee)
+    def remove_employee(self, employee):
+        '''Removes an employee from the 'employees' set.
+
+        Arguments:
+        employee(string)
+        '''
+        employee_name = employee.first_name+" "+employee.last_name
+        self.employees.remove(employee_name)
 
     def get_employees(self):
         '''Returns the 'employees' set.
@@ -83,7 +92,7 @@ class Department():
         Arguments: 
         NONE
         '''
-        return employees
+        return self.employees
 
     def meet(self):
         '''Prints a message identifying a meeting location.
@@ -215,7 +224,7 @@ class AdaAccess():
 class HREmployee(Employee, FullTime, AccessCard, AdaAccess):
     '''Class representing Human Resources Employee'''
 
-    def __init__(self, firstName, lastName):
+    def __init__(self, first_name, last_name):
         super().__init__(firstName, lastName)
         FullTime.__init__(self)
         AccessCard.__init__(self)
@@ -224,8 +233,8 @@ class HREmployee(Employee, FullTime, AccessCard, AdaAccess):
 class AdminEmployee(Employee, FullTime, AccessCard, AdaAccess):
     '''Class representing Human Resources Employee'''
 
-    def __init__(self, firstName, lastName):
-        super().__init__(firstName, lastName)
+    def __init__(self, first_name, last_name):
+        super().__init__(first_name, last_name)
         FullTime.__init__(self)
         AccessCard.__init__(self)
         AdaAccess.__init__(self)
@@ -233,8 +242,8 @@ class AdminEmployee(Employee, FullTime, AccessCard, AdaAccess):
 class SalesEmployee(Employee, FullTime, AccessCard, AdaAccess):
     '''Class representing Human Resources Employee'''
 
-    def __init__(self, firstName, lastName):
-        super().__init__(firstName, lastName)
+    def __init__(self, first_name, last_name):
+        super().__init__(first_name, last_name)
         FullTime.__init__(self)
         AdaAccess.__init__(self)
 
@@ -250,3 +259,17 @@ hr_department.add_policy("1.2", "Policy 1.2")
 print(hr_department.policies)
 print(sales_department.meet())
 print(sales_department.budget)
+savannah = SalesEmployee('Savannah', 'Jones')
+shawn = SalesEmployee('Shawn', 'Townsend')
+sales_department.add_employee(savannah)
+sales_department.add_employee(shawn)
+sales_employees = sales_department.get_employees()
+jeremy = AdminEmployee('Jeremy', 'Verbic')
+elijah = AdminEmployee('Elijah', 'Humphreys')
+admin_department.add_employee(jeremy)
+admin_department.add_employee(elijah)
+admin_employees = admin_department.get_employees()
+print(sales_employees)
+print(admin_employees)
+admin_department.remove_employee(elijah)
+print(admin_employees)
