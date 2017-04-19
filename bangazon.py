@@ -66,7 +66,7 @@ class Department():
     def employee_count(self, val):
         '''Sets the employee count.
         '''
-        self.__employee_count = val
+        self.__employee_count = len(self.employees)
 
     def add_employee(self, employee):
         '''Adds an employee to the 'employees' set.
@@ -74,8 +74,8 @@ class Department():
         Arguments:
         employee(string)
         '''
-        employee_name = employee.first_name+" "+employee.last_name
-        self.employees.add(employee_name)
+        self.employee_count += 1
+        self.employees.add(employee)
 
     def remove_employee(self, employee):
         '''Removes an employee from the 'employees' set.
@@ -83,8 +83,8 @@ class Department():
         Arguments:
         employee(string)
         '''
-        employee_name = employee.first_name+" "+employee.last_name
-        self.employees.remove(employee_name)
+        self.employee_count -= 1
+        self.employees.remove(employee)
 
     def get_employees(self):
         '''Returns the 'employees' set.
@@ -92,6 +92,9 @@ class Department():
         Arguments: 
         NONE
         '''
+        print("\nDepartment: {}".format(self.name))
+        for employee in self.employees:
+            print("{} {}".format(employee.first_name, employee.last_name))
         return self.employees
 
     def meet(self):
@@ -250,26 +253,15 @@ class SalesEmployee(Employee, FullTime, AccessCard, AdaAccess):
 hr_department = HR("Human Resources", "Shawn", 2)
 admin_department = Admin("Administration", "Elijah", 4)
 sales_department = Sales("Sales", "Savannah", 6)
-print(hr_department.name)
-print(admin_department.name)
-print(sales_department.name)
-
 hr_department.add_policy("1.1", "Policy 1.1")
 hr_department.add_policy("1.2", "Policy 1.2")
-print(hr_department.policies)
-print(sales_department.meet())
-print(sales_department.budget)
 savannah = SalesEmployee('Savannah', 'Jones')
-shawn = SalesEmployee('Shawn', 'Townsend')
+trevor = SalesEmployee('Trevor', 'Townsend')
 sales_department.add_employee(savannah)
-sales_department.add_employee(shawn)
-sales_employees = sales_department.get_employees()
+sales_department.add_employee(trevor)
 jeremy = AdminEmployee('Jeremy', 'Verbic')
 elijah = AdminEmployee('Elijah', 'Humphreys')
 admin_department.add_employee(jeremy)
 admin_department.add_employee(elijah)
-admin_employees = admin_department.get_employees()
-print(sales_employees)
-print(admin_employees)
-admin_department.remove_employee(elijah)
-print(admin_employees)
+sales_department.get_employees()
+admin_department.get_employees()
